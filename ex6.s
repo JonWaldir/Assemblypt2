@@ -23,25 +23,25 @@ loop:
 	syscall
 	add $t0, $v0, 0 ##t0 e o numero
 	
-	ble $t0, 0,volta
-	add $t1, $t1,1
-	beq $t1, 1, faixa
-	bgt $t2 , $t3, t2maior
-	j t3maior
+	ble $t0, 0,volta #verifica se é negativo
+	add $t1, $t1,1 # incrementa um no contador
+	beq $t1, 1, primeironum #verifica se o contador é 1
+	bgt $t0 , $t5, novomaior #verifica se o t2 e maior que o t3
+	ble $t0, $t4, novomenor
 	
 
 	j loop
-faixa:
-	add $t3,$t0,0 # t3 e o maior e recebe o numero
-	add $t2, $t0,0 #t2 e o menor
+primeironum:
+	add $t5,$t0,0 # t5e o maior e recebe o numero
+	add $t4, $t0,0 #t4 e o menor
 	
-t2maior: 
-	add $t3, $t2,0
-	add $t2, $t3,0
+novomaior: 
+	add $t5, $t0,0
+
 	j loop
-t3maior:
-	add $t3, $t3,0
-	add $t2, $t2,0
+novomenor:
+	add $t4, $t0,0
+
 	j loop
 	
 	
@@ -53,7 +53,7 @@ final:
 	syscall
 	
 	li $v0 ,1
-	add $a0, $t3,0
+	add $a0, $t5,0
 	syscall
 	
 	li $v0,4
@@ -61,5 +61,5 @@ final:
 	syscall
 	
 	li $v0,1
-	add $a0, $t2,0
+	add $a0, $t4,0
 	syscall	
